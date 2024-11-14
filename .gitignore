@@ -1,0 +1,4 @@
+*_autogen/
+.cmake
+.a
+.user

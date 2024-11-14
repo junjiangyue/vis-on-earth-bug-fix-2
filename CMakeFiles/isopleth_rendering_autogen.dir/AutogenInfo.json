@@ -1,0 +1,160 @@
+{
+	"BUILD_DIR" : "/data/vis-on-earth-bug-fix-2/isopleth_rendering_autogen",
+	"CMAKE_BINARY_DIR" : "/data/vis-on-earth-bug-fix-2",
+	"CMAKE_CURRENT_BINARY_DIR" : "/data/vis-on-earth-bug-fix-2",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/data/vis-on-earth-bug-fix-2",
+	"CMAKE_EXECUTABLE" : "/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/bin/cmake",
+	"CMAKE_LIST_FILES" : 
+	[
+		"/data/vis-on-earth-bug-fix-2/CMakeLists.txt",
+		"/data/vis-on-earth-bug-fix-2/CMakeFiles/3.20.0/CMakeSystem.cmake",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/CMakeSystemSpecificInitialize.cmake",
+		"/data/vis-on-earth-bug-fix-2/CMakeFiles/3.20.0/CMakeCXXCompiler.cmake",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/CMakeSystemSpecificInformation.cmake",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/CMakeGenericSystem.cmake",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/CMakeInitializeConfigs.cmake",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/Platform/Linux.cmake",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/Platform/UnixPaths.cmake",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/CMakeCXXInformation.cmake",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/CMakeLanguageInformation.cmake",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/Compiler/GNU-CXX.cmake",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/Compiler/GNU.cmake",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/Compiler/CMakeCommonCompilerMacros.cmake",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/Platform/Linux-GNU-CXX.cmake",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/Platform/Linux-GNU.cmake",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/CMakeCommonLanguageInclude.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5/Qt5ConfigVersion.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5/Qt5Config.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5/Qt5ModuleLocation.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigVersion.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Core/Qt5CoreConfig.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigExtras.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Core/Qt5CoreMacros.cmake",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/CMakeParseArguments.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfig.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_ApngImagePlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QComposePlatformInputContextPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSEmulatorIntegrationPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSIntegrationPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSKmsEglDeviceIntegrationPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSKmsGbmIntegrationPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEglFSX11IntegrationPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEvdevKeyboardPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEvdevMousePlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEvdevTabletPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QEvdevTouchScreenPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QIbusPlatformInputContextPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QLibInputPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QLinuxFbIntegrationPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QMinimalEglIntegrationPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QVncIntegrationPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QXcbEglIntegrationPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QXcbGlxIntegrationPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5Gui_QXcbIntegrationPlugin.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/CMakeParseArguments.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfig.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Charts/Qt5ChartsConfigVersion.cmake",
+		"/usr/lib/aarch64-linux-gnu/cmake/Qt5Charts/Qt5ChartsConfig.cmake"
+	],
+	"CMAKE_SOURCE_DIR" : "/data/vis-on-earth-bug-fix-2",
+	"DEP_FILE" : "",
+	"DEP_FILE_RULE_NAME" : "",
+	"HEADERS" : [],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/data/vis-on-earth-bug-fix-2/isopleth_rendering_autogen/include",
+	"MOC_COMPILATION_FILE" : "/data/vis-on-earth-bug-fix-2/isopleth_rendering_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : 
+	[
+		"DATA_PATH_PREFIX=\"/data/vis-on-earth-qt-osg-test/data/\"",
+		"QT_CHARTS_LIB",
+		"QT_CORE_LIB",
+		"QT_GUI_LIB",
+		"QT_NO_DEBUG",
+		"QT_WIDGETS_LIB",
+		"VIS4EARTH_SHADER_PREFIX=\"/data/vis-on-earth-bug-fix-2/vis4earth/shader/\""
+	],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/data/SDK/OpenSceneGraph-Release/include",
+		"/data/vis-on-earth-bug-fix-2",
+		"/usr/include/aarch64-linux-gnu/qt5",
+		"/usr/include/aarch64-linux-gnu/qt5/QtCore",
+		"/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++",
+		"/usr/include/aarch64-linux-gnu/qt5/QtWidgets",
+		"/usr/include/aarch64-linux-gnu/qt5/QtGui",
+		"/usr/include/aarch64-linux-gnu/qt5/QtCharts",
+		"/usr/include/c++/9",
+		"/usr/include/aarch64-linux-gnu/c++/9",
+		"/usr/include/c++/9/backward",
+		"/usr/lib/gcc/aarch64-linux-gnu/9/include",
+		"/usr/local/include",
+		"/usr/include/aarch64-linux-gnu",
+		"/usr/include"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE", "Q_NAMESPACE_EXPORT" ],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : false,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/usr/bin/c++",
+		"-dM",
+		"-E",
+		"-c",
+		"/data/cmake-3.20.0-linux-aarch64/cmake-3.20.0-linux-aarch64/share/cmake-3.20/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/data/vis-on-earth-bug-fix-2/isopleth_rendering_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : 
+	[
+		"/data/vis-on-earth-bug-fix-2/line_chart_autogen/mocs_compilation.cpp",
+		"/data/vis-on-earth-bug-fix-2/parallel_coordinate_autogen/mocs_compilation.cpp",
+		"/data/vis-on-earth-bug-fix-2/pie_chart_autogen/mocs_compilation.cpp"
+	],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 1,
+	"PARSE_CACHE_FILE" : "/data/vis-on-earth-bug-fix-2/CMakeFiles/isopleth_rendering_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/lib/qt5/bin/moc",
+	"QT_UIC_EXECUTABLE" : "/usr/lib/qt5/bin/uic",
+	"QT_VERSION_MAJOR" : 5,
+	"QT_VERSION_MINOR" : 12,
+	"SETTINGS_FILE" : "/data/vis-on-earth-bug-fix-2/CMakeFiles/isopleth_rendering_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"/data/vis-on-earth-bug-fix-2/app/isopleth_rendering/main.cpp",
+			"MU",
+			null
+		]
+	],
+	"UIC_OPTIONS" : [],
+	"UIC_SEARCH_PATHS" : [],
+	"UIC_SKIP" : 
+	[
+		"/data/vis-on-earth-bug-fix-2/line_chart_autogen/mocs_compilation.cpp",
+		"/data/vis-on-earth-bug-fix-2/parallel_coordinate_autogen/mocs_compilation.cpp",
+		"/data/vis-on-earth-bug-fix-2/pie_chart_autogen/mocs_compilation.cpp"
+	],
+	"UIC_UI_FILES" : [],
+	"VERBOSITY" : 0
+}
