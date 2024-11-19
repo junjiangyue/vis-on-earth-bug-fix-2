@@ -138,8 +138,6 @@ class HeightMapRenderer {
                 auto pos = toSphere(uv);
                 verts->push_back(pos);
                 uvs->push_back(uv);
-                verts->push_back(pos);
-                uvs->push_back(uv);
             }
 
         std::vector<GLuint> vertIndices;
@@ -148,10 +146,10 @@ class HeightMapRenderer {
                 vertIndices.emplace_back(triIndices[i]);
         };
         auto addBotSurf = [&](int latIdx, int lonIdx) {
-            std::array<GLuint, 4> quadIndices = {latIdx * 2 * param.tessel[0] + lonIdx,
-                                                 latIdx * 2 * param.tessel[0] + lonIdx + 1,
-                                                 (latIdx + 1) * 2 * param.tessel[0] + lonIdx + 1,
-                                                 (latIdx + 1) * 2 * param.tessel[0] + lonIdx};
+            std::array<GLuint, 4> quadIndices = {latIdx * param.tessel[0] + lonIdx,
+                                                 latIdx * param.tessel[0] + lonIdx + 1,
+                                                 (latIdx + 1) * param.tessel[0] + lonIdx + 1,
+                                                 (latIdx + 1) * param.tessel[0] + lonIdx};
 
             addTri({quadIndices[0], quadIndices[1], quadIndices[2]});
             addTri({quadIndices[2], quadIndices[3], quadIndices[0]});

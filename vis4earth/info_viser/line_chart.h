@@ -613,8 +613,8 @@ class LineChart {
             osg::Vec3f axisOrigin = vec3ToSphere(osg::Vec3f(0.0f, 0.0f, 0.0f));
             // z轴
             osg::ref_ptr<osg::Vec3Array> zVer = new osg::Vec3Array();
-            zVer->push_back(axisOrigin);
-            zVer->push_back(vec3ToSphere(osg::Vec3f(0.0f, 0.0f, 1.0f)));
+            zVer->push_back(osg::Vec3(axisOrigin));
+            zVer->push_back(osg::Vec3(vec3ToSphere(osg::Vec3f(0.0f, 0.0f, 1.0f))));
             zGeom->setVertexArray(zVer.get());
 
             osg::ref_ptr<osg::Vec4Array> zColor = new osg::Vec4Array();
@@ -622,7 +622,7 @@ class LineChart {
             zColor->push_back(osg::Vec4(0.0f, 0.0f, 1.0f, 1.0f));
             zGeom->setColorArray(zColor.get());
             zGeom->setColorBinding(osg::Geometry::BIND_PER_VERTEX);
-            zGeom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::LINES, 0, 2));
+            zGeom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::LINE_STRIP, 0, zVer->size()));
 
             // y轴
             osg::ref_ptr<osg::Geometry> yGeom = new osg::Geometry();

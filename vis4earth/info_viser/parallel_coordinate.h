@@ -570,7 +570,7 @@ class ParallelCoordinate {
         zColor->push_back(osg::Vec4(0.0f, 0.0f, 1.0f, 1.0f));
         zGeom->setColorArray(zColor.get());
         zGeom->setColorBinding(osg::Geometry::BIND_PER_VERTEX);
-        zGeom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::LINES, 0, 2));
+        zGeom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::LINE_STRIP, 0, 2));
 
         // y轴
         osg::ref_ptr<osg::Geometry> yGeom = new osg::Geometry();

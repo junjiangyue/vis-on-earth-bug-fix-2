@@ -54,10 +54,10 @@ int main(int argc, char **argv) {
     clock_t prevClk;
     {
         std::vector<std::pair<const wchar_t *, float>> pieDat0;
-        pieDat0.push_back(std::make_pair(L"第一季度", 0.2f));
-        pieDat0.push_back(std::make_pair(L"第二季度", 0.3f));
-        pieDat0.push_back(std::make_pair(L"第三季度", 0.4f));
-        pieDat0.push_back(std::make_pair(L"第四季度", 0.1f));
+        pieDat0.push_back(std::make_pair(L"Q1", 0.2f));
+        pieDat0.push_back(std::make_pair(L"Q2", 0.3f));
+        pieDat0.push_back(std::make_pair(L"Q3", 0.4f));
+        pieDat0.push_back(std::make_pair(L"Q4", 0.1f));
         // pieDat0.push_back(std::make_pair(L"w", 0.15f));
 
         if (!errMsg.empty())

@@ -4,11 +4,17 @@
 #include <set>
 #include <unordered_set>
 #include <vector>
+#include <cwchar>   // 包含wchar_t支持的头文件
+#include <cstdio>   // 包含swprintf的头文件
 
 #include <osg/CoordinateSystemNode>
 #include <osg/CullFace>
 #include <osg/Group>
+#include <osg/LineWidth>
+#include <osg/Matrix>
 #include <osg/ShapeDrawable>
+#include <osg/Vec3>
+#include <osgText/Text>
 
 #include <vis4earth/geographics_cmpt.h>
 #include <vis4earth/osg_util.h>
@@ -48,6 +54,9 @@ class IsoplethRenderer : public QtOSGReflectableWidget {
     osg::ref_ptr<osg::Vec3Array> vertSmootheds;
     osg::ref_ptr<osg::Vec2Array> uvs;
 
+	osg::ref_ptr<osg::Uniform> relativeAlpha0, relativeAlpha1;
+	osg::ref_ptr<osgText::Text> aText;
+
     std::vector<GLuint> vertIndices;
     std::array<std::set<std::array<GLuint, 2>>, 2> multiEdges;
 
@@ -56,6 +65,8 @@ class IsoplethRenderer : public QtOSGReflectableWidget {
     void marchingSquare(uint32_t volID);
 
     void updateGeometry(uint32_t volID);
+
+	void initAnnotation();
 };
 
 } // namespace VIS4Earth

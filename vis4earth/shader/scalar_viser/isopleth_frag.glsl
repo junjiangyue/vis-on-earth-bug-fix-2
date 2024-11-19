@@ -12,7 +12,7 @@ uniform vec3 eyePos;
 
 in vec3 vertex;
 in vec3 normal;
-in vec3 color;
+in vec4 color;
 
 void main() {
     if (useShading) {
@@ -25,9 +25,11 @@ void main() {
         vec3 ambient = ka * vec3(1.f, 1.f, 1.f);
         vec3 diffuse = kd * dot(absNorm, p2l) * vec3(1.f, 1.f, 1.f);
         vec3 specular = ks * pow(max(0.f, dot(absNorm, hfDir)), shininess) * vec3(1.f, 1.f, 1.f);
-        vec3 shadingColor = (ambient + diffuse + specular) * color;
+        vec3 shadingColor = (ambient + diffuse + specular) * color.rgb;
 
-        gl_FragColor = vec4(shadingColor, 1.f);
+		// gl_FragColor = vec4(shadingColor, 1.f);
+		gl_FragColor = vec4(shadingColor, color.a);
     } else
-        gl_FragColor = vec4(color, 1.f);
+        // gl_FragColor = vec4(color, 1.f);
+		gl_FragColor = color;
 }

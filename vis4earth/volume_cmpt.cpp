@@ -20,13 +20,18 @@ VIS4Earth::VolumeComponent::VolumeComponent(bool keepCPUData, bool keepVolSmooth
             &VolumeComponent::loadRAWVolume);
     connect(ui->pushButton_loadTF, &QPushButton::clicked, this, &VolumeComponent::loadTF);
 
+    multiRelativeAlphas[0] = 1.0f;
+    multiRelativeAlphas[1] = 1.0f;
     auto changeVolID = [&](int idx) {
+        ui->doubleSpinBox_relativeAlpha->setValue(multiRelativeAlphas[idx]);
         tfEditors[idx]->raise();
 
         if (GetVolumeTimeNumber(idx) == 0)
             return;
 
         updateVoxelPerVolume();
+
+        emit TransferFunctionChanged();
     };
     connect(ui->comboBox_currVolID, QOverload<int>::of(&QComboBox::currentIndexChanged),
             changeVolID);
@@ -37,6 +42,14 @@ VIS4Earth::VolumeComponent::VolumeComponent(bool keepCPUData, bool keepVolSmooth
     connect(ui->comboBox_smoothDim, QOverload<int>::of(&QComboBox::currentIndexChanged),
             [&](int) { smoothVolume(); });
 
+    auto changeRelativeAlpha = [&]() {
+        multiRelativeAlphas[ui->comboBox_currVolID->currentIndex()] =
+            ui->doubleSpinBox_relativeAlpha->value();
+        emit TransferFunctionChanged();
+    };
+    connect(ui->doubleSpinBox_relativeAlpha, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+            changeRelativeAlpha);
+    changeRelativeAlpha();
     for (int i = 0; i < 2; ++i)
         connect(tfEditors[i], &TransferFunctionEditor::TransferFunctionChanged, this,
                 &VolumeComponent::sampleTF);

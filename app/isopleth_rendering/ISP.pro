@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = CLD
+TARGET = HTM
 
 CONFIG += c++11 qt plugin
 QT += core gui widgets charts
@@ -18,7 +18,7 @@ DEFINES += DATA_PATH_PREFIX=\\\"/data/vis-on-earth-qt-osg-test/data/\\\"
 DEFINES += VIS4EARTH_SHADER_PREFIX=\\\"/data/vis-on-earth-bug-fix-2/vis4earth/shader/\\\"
 
 # OSG 路径
-OSG_RELEASE = /data/SDK/osg3.4
+OSG_RELEASE =  /data/SDK/osg3.4
 OSG_DEBUG = /data/SDK/OpenSceneGraph-Debug
 
 # 根据构建类型设置 OSG 的库和包含路径

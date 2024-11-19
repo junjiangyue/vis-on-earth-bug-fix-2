@@ -87,6 +87,7 @@ class VolumeComponent : public QtOSGReflectableWidget {
     Ui::VolumeComponent *ui;
     std::array<TransferFunctionEditor *, 2> tfEditors;
     std::array<osg::ref_ptr<osg::Texture1D>, 2> multiTFs;
+	std::array<float, 2> multiRelativeAlphas; 
     std::array<osg::ref_ptr<osg::Texture2D>, 2> multiTFPreInts;
     std::array<std::vector<osg::ref_ptr<osg::Texture3D>>, 2> multiTimeVaryingVols;
     std::array<std::vector<osg::ref_ptr<osg::Texture3D>>, 2> multiTimeVaryingVolSmootheds;

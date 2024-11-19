@@ -9,6 +9,7 @@ VIS4Earth::IsoplethRenderer::IsoplethRenderer(QWidget *parent)
     ui->scrollAreaWidgetContents_main->layout()->addWidget(&volCmpt);
 
     initOSGResource();
+    initAnnotation();
 
     auto updateGeom = [&]() {
         vertSmootheds->clear();
@@ -34,9 +35,18 @@ VIS4Earth::IsoplethRenderer::IsoplethRenderer(QWidget *parent)
 
         updateGeom();
     };
+    auto updateText = [&]() {
+        wchar_t buffer[50];
+        swprintf(buffer, sizeof(buffer) / sizeof(wchar_t), L"Isosurface val: %d", isoval);
+        const wchar_t* result = buffer;
+        aText->setText(result);
+        // updateText();
+    };
+
     connect(ui->horizontalSlider_isoval, &QSlider::sliderMoved,
             [&](int val) { ui->label_isoval->setText(QString::number(val)); });
     connect(ui->horizontalSlider_isoval, &QSlider::valueChanged, genIsosurface);
+    connect(ui->horizontalSlider_isoval, &QSlider::valueChanged, updateText);
     connect(ui->checkBox_useVolSmoothed, &QCheckBox::stateChanged, genIsosurface);
     connect(&volCmpt, &VolumeComponent::VolumeChanged, genIsosurface);
     connect(ui->comboBox_meshSmoothType, QOverload<int>::of(&QComboBox::currentIndexChanged),
@@ -51,9 +61,19 @@ VIS4Earth::IsoplethRenderer::IsoplethRenderer(QWidget *parent)
                                               osg::StateAttribute::ON);
         stateSet->setTextureAttributeAndModes(1, volCmpt.GetTransferFunction(1),
                                               osg::StateAttribute::ON);
+        if (volCmpt.GetUI()->comboBox_currVolID->currentIndex() == 0) {
+            relativeAlpha0->set(float(volCmpt.GetUI()->doubleSpinBox_relativeAlpha->value()));
+        } else {
+            relativeAlpha1->set(float(volCmpt.GetUI()->doubleSpinBox_relativeAlpha->value()));
+        }
     };
     connect(&volCmpt, &VolumeComponent::TransferFunctionChanged, changeTF);
     changeTF();
+    updateText();
+    // initAnnotation();
+
+
+    aText->setText(L"Isosurface val: 30");
 
     debugProperties({this, &volCmpt, &geoCmpt});
 }
@@ -83,6 +103,11 @@ void VIS4Earth::IsoplethRenderer::initOSGResource() {
         program->addShader(fragShader);
     }
     {
+        relativeAlpha0 = new osg::Uniform("relativeAlpha0", 0.f);
+        relativeAlpha1 = new osg::Uniform("relativeAlpha1", 0.f);
+        stateSet->addUniform(relativeAlpha0);
+        stateSet->addUniform(relativeAlpha1);
+
         auto tfTexUni = new osg::Uniform(osg::Uniform::SAMPLER_1D, "tfTex0");
         tfTexUni->set(0);
         stateSet->addUniform(tfTexUni);
@@ -92,6 +117,8 @@ void VIS4Earth::IsoplethRenderer::initOSGResource() {
     }
     stateSet->setMode(GL_DEPTH_TEST, osg::StateAttribute::ON);
     stateSet->setAttributeAndModes(program, osg::StateAttribute::ON);
+    stateSet->setMode(GL_BLEND, osg::StateAttribute::ON);
+    stateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
 
     geode->addDrawable(geom);
     grp->addChild(geode);
@@ -99,9 +126,10 @@ void VIS4Earth::IsoplethRenderer::initOSGResource() {
 
 void VIS4Earth::IsoplethRenderer::marchingSquare(uint32_t volID) {
     using T = uint8_t;
-    std::array<uint32_t, 3> voxPerVol = {volCmpt.GetUI()->label_voxPerVolX->text().toInt(),
-                                         volCmpt.GetUI()->label_voxPerVolY->text().toInt(),
-                                         volCmpt.GetUI()->label_voxPerVolZ->text().toInt()};
+    auto &vol = volCmpt.GetVolumeCPU(volID, 0);
+    std::array<uint32_t, 3> voxPerVol = {vol.GetVoxelPerVolume()[0], vol.GetVoxelPerVolume()[1],
+                                         vol.GetVoxelPerVolume()[2]};
+
     auto voxPerVolYxX = static_cast<size_t>(voxPerVol[1]) * voxPerVol[0];
 
     auto sample = [&](const osg::Vec3i &pos) -> T {
@@ -340,4 +368,52 @@ void VIS4Earth::IsoplethRenderer::updateGeometry(uint32_t volID) {
     geom->getPrimitiveSetList().clear();
     geom->addPrimitiveSet(
         new osg::DrawElementsUInt(GL_LINES, vertIndices.size(), vertIndices.data()));
+}
+
+void VIS4Earth::IsoplethRenderer::initAnnotation() {
+    uint8_t annotation = 30;
+    aText = new osgText::Text;
+    // aText->setText(std::to_string(static_cast<unsigned int>(isoval)));
+
+    float fontSize = static_cast<float>(osg::WGS_84_RADIUS_POLAR) / 40;
+    aText->setFont("Fonts/simhei.ttf");
+    aText->setText(L"Isosurface val: 30");
+
+    // wprintf(L"是字母\n");
+
+    aText->setCharacterSize(fontSize);
+    aText->setColor(osg::Vec4(1.0, 1.0, 1.0, 1.0));
+
+    aText->setAxisAlignment(osgText::Text::SCREEN);
+
+    osg::Vec3 pos(0.0f, 1.0f, 1.0f);
+    float longtitudeMin =
+        geoCmpt.GetUI()->doubleSpinBox_longtitudeMin_float_VIS4EarthReflectable->value();
+    float longtitudeMax =
+        geoCmpt.GetUI()->doubleSpinBox_longtitudeMax_float_VIS4EarthReflectable->value();
+    float latitudeMin =
+        geoCmpt.GetUI()->doubleSpinBox_latitudeMin_float_VIS4EarthReflectable->value();
+    float latitudeMax =
+        geoCmpt.GetUI()->doubleSpinBox_latitudeMax_float_VIS4EarthReflectable->value();
+    float heightMin = geoCmpt.GetUI()->doubleSpinBox_heightMin_float_VIS4EarthReflectable->value();
+    float heightMax = geoCmpt.GetUI()->doubleSpinBox_heightMax_float_VIS4EarthReflectable->value();
+    longtitudeMin = Math::DegToRad(longtitudeMin);
+    longtitudeMax = Math::DegToRad(longtitudeMax);
+    latitudeMin = Math::DegToRad(latitudeMin);
+    latitudeMax = Math::DegToRad(latitudeMax);
+    heightMin = heightMin + static_cast<float>(osg::WGS_84_RADIUS_POLAR);
+    heightMax = heightMax + static_cast<float>(osg::WGS_84_RADIUS_POLAR);
+
+    float lon = longtitudeMin + pos.x() * (longtitudeMax - longtitudeMin);
+    float lat = latitudeMin + pos.y() * (latitudeMax - latitudeMin);
+    float h = heightMin + pos.z() * (heightMax - heightMin);
+    pos.z() = h * sin(lat);
+    h *= cos(lat);
+    pos.y() = h * sin(lon);
+    pos.x() = h * cos(lon);
+
+    aText->setPosition(pos);
+    osg::ref_ptr<osg::Geode> textGeode = new osg::Geode;
+    textGeode->addDrawable(aText.get());
+    grp->addChild(textGeode.get());
 }
