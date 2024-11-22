@@ -32,6 +32,7 @@ class IsoplethRenderer : public QtOSGReflectableWidget {
 
   public:
     enum class EMeshSmoothType { None, SphericalSpline, SqaureBezier };
+    enum class ELineType { Solid, Dash };
 
     IsoplethRenderer(QWidget *parent = nullptr);
 

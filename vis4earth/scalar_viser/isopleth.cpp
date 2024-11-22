@@ -17,7 +17,7 @@ VIS4Earth::IsoplethRenderer::IsoplethRenderer(QWidget *parent)
             if (volCmpt.GetVolumeTimeNumber(i) != 0)
                 updateGeometry(i);
     };
-    auto genIsosurface = [&, updateGeom]() {
+    auto genIsopleth = [&, updateGeom]() {
         isoval = ui->horizontalSlider_isoval->value();
         useVolSmoothed = ui->checkBox_useVolSmoothed->isChecked();
         meshSmoothType = static_cast<EMeshSmoothType>(ui->comboBox_meshSmoothType->currentIndex());
@@ -45,15 +45,16 @@ VIS4Earth::IsoplethRenderer::IsoplethRenderer(QWidget *parent)
 
     connect(ui->horizontalSlider_isoval, &QSlider::sliderMoved,
             [&](int val) { ui->label_isoval->setText(QString::number(val)); });
-    connect(ui->horizontalSlider_isoval, &QSlider::valueChanged, genIsosurface);
+    connect(ui->horizontalSlider_isoval, &QSlider::valueChanged, genIsopleth);
     connect(ui->horizontalSlider_isoval, &QSlider::valueChanged, updateText);
-    connect(ui->checkBox_useVolSmoothed, &QCheckBox::stateChanged, genIsosurface);
-    connect(&volCmpt, &VolumeComponent::VolumeChanged, genIsosurface);
+    connect(ui->checkBox_useVolSmoothed, &QCheckBox::stateChanged, genIsopleth);
+    connect(&volCmpt, &VolumeComponent::VolumeChanged, genIsopleth);
     connect(ui->comboBox_meshSmoothType, QOverload<int>::of(&QComboBox::currentIndexChanged),
             [&, updateGeom](int idx) {
                 meshSmoothType = static_cast<EMeshSmoothType>(idx);
                 updateGeom();
             });
+    connect(ui->comboBox_lineType, QOverload<int>::of(&QComboBox::currentIndexChanged), genIsopleth);
 
     auto changeTF = [&]() {
         auto stateSet = geode->getOrCreateStateSet();
@@ -125,6 +126,8 @@ void VIS4Earth::IsoplethRenderer::initOSGResource() {
 }
 
 void VIS4Earth::IsoplethRenderer::marchingSquare(uint32_t volID) {
+    ELineType lineType = static_cast<ELineType>(ui->comboBox_lineType->currentIndex());
+
     using T = uint8_t;
     auto &vol = volCmpt.GetVolumeCPU(volID, 0);
     std::array<uint32_t, 3> voxPerVol = {vol.GetVoxelPerVolume()[0], vol.GetVoxelPerVolume()[1],
@@ -150,6 +153,8 @@ void VIS4Earth::IsoplethRenderer::marchingSquare(uint32_t volID) {
 
     auto addLineSeg = [&](const osg::Vec3i &startPos, const std::array<T, 4> &scalars,
                           const osg::Vec4f &omegas, uint8_t mask) {
+        std::array<GLuint, 4> tmpIndices;
+        int32_t tmpIndicesIdx = 0;
         for (uint8_t i = 0; i < 4; ++i) {
             if (((mask >> i) & 0b1) == 0)
                 continue;
@@ -170,7 +175,9 @@ void VIS4Earth::IsoplethRenderer::marchingSquare(uint32_t volID) {
             edgeID = (edgeID << 1) + (i == 1 || i == 3 ? 1 : 0);
             auto itr = edge2vertIDs.find(edgeID);
             if (itr != edge2vertIDs.end()) {
-                vertIndices.push_back(itr->second);
+                // vertIndices.push_back(itr->second);
+                tmpIndices[tmpIndicesIdx] = itr->second;
+                ++tmpIndicesIdx;
                 continue;
             }
 
@@ -200,16 +207,55 @@ void VIS4Earth::IsoplethRenderer::marchingSquare(uint32_t volID) {
                 break;
             }
 
-            vertIndices.push_back(verts->size());
+            // vertIndices.push_back(verts->size());
+            tmpIndices[tmpIndicesIdx] = verts->size();
             verts->push_back(pos);
             uvs->push_back(osg::Vec2(volID, scalar / 255.f));
-            edge2vertIDs.emplace(edgeID, vertIndices.back());
+            edge2vertIDs.emplace(edgeID, tmpIndices[tmpIndicesIdx]);
+            ++tmpIndicesIdx;
         }
 
-        multiEdges[volID].emplace(std::array<GLuint, 2>{vertIndices[vertIndices.size() - 1],
-                                                        vertIndices[vertIndices.size() - 2]});
-        multiEdges[volID].emplace(std::array<GLuint, 2>{vertIndices[vertIndices.size() - 2],
-                                                        vertIndices[vertIndices.size() - 1]});
+        switch (lineType) {
+        case ELineType::Solid: {
+            vertIndices.push_back(tmpIndices[0]);
+            vertIndices.push_back(tmpIndices[1]);
+
+            multiEdges[volID].emplace(std::array<GLuint, 2>{tmpIndices[0], tmpIndices[1]});
+            multiEdges[volID].emplace(std::array<GLuint, 2>{tmpIndices[1], tmpIndices[0]});
+        } break;
+        case ELineType::Dash: {
+            tmpIndices[3] = tmpIndices[1];
+
+            osg::Vec3& p0 = (*verts)[tmpIndices[0]];
+            osg::Vec3& p3 = (*verts)[tmpIndices[3]];
+            auto p1 = p0 + (p3 - p0) * .25f;
+            auto p2 = p0 + (p3 - p0) * .75f;
+
+            tmpIndices[1] = verts->size();
+            verts->push_back(p1);
+            uvs->push_back((*uvs)[tmpIndices[0]]);
+            tmpIndices[2] = verts->size();
+            verts->push_back(p2);
+            uvs->push_back((*uvs)[tmpIndices[3]]);
+
+            vertIndices.push_back(tmpIndices[0]);
+            vertIndices.push_back(tmpIndices[1]);
+            vertIndices.push_back(tmpIndices[2]);
+            vertIndices.push_back(tmpIndices[3]);
+
+            multiEdges[volID].emplace(std::array<GLuint, 2>{tmpIndices[0], tmpIndices[1]});
+            multiEdges[volID].emplace(std::array<GLuint, 2>{tmpIndices[1], tmpIndices[0]});
+            multiEdges[volID].emplace(std::array<GLuint, 2>{tmpIndices[1], tmpIndices[2]});
+            multiEdges[volID].emplace(std::array<GLuint, 2>{tmpIndices[2], tmpIndices[1]});
+            multiEdges[volID].emplace(std::array<GLuint, 2>{tmpIndices[2], tmpIndices[3]});
+            multiEdges[volID].emplace(std::array<GLuint, 2>{tmpIndices[3], tmpIndices[2]});
+        } break;
+        }
+
+//        multiEdges[volID].emplace(std::array<GLuint, 2>{vertIndices[vertIndices.size() - 1],
+//                                                        vertIndices[vertIndices.size() - 2]});
+//        multiEdges[volID].emplace(std::array<GLuint, 2>{vertIndices[vertIndices.size() - 2],
+//                                                        vertIndices[vertIndices.size() - 1]});
     };
 
     osg::Vec3i startPos;
