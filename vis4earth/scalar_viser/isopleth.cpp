@@ -73,8 +73,15 @@ VIS4Earth::IsoplethRenderer::IsoplethRenderer(QWidget *parent)
     updateText();
     // initAnnotation();
 
-
     aText->setText(L"Isosurface val: 30");
+
+    auto changeLineWidth = [&]() {
+        float lineWidth = ui->doubleSpinBox_lineWidth->value();
+        auto stateSet = geode->getOrCreateStateSet();
+        stateSet->setAttribute(new osg::LineWidth(lineWidth));
+    };
+    connect(ui->doubleSpinBox_lineWidth, QOverload<double>::of(&QDoubleSpinBox::valueChanged), changeLineWidth);
+    changeLineWidth();
 
     debugProperties({this, &volCmpt, &geoCmpt});
 }

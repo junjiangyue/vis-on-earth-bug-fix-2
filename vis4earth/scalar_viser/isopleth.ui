@@ -38,23 +38,6 @@
           <string>等值面</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>网格光滑</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QLabel" name="label_isoval">
-            <property name="text">
-             <string>30</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
           <item row="3" column="1">
            <widget class="QComboBox" name="comboBox_meshSmoothType">
             <item>
@@ -90,10 +73,55 @@
             </property>
            </widget>
           </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>网格光滑</string>
+            </property>
+           </widget>
+          </item>
           <item row="3" column="2">
            <widget class="QCheckBox" name="checkBox_useVolSmoothed">
             <property name="text">
              <string>使用平滑体数据</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QComboBox" name="comboBox_lineType">
+            <item>
+             <property name="text">
+              <string>实线</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>虚线</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>线型</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>颜色映射模式</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_isoval">
+            <property name="text">
+             <string>30</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -118,32 +146,24 @@
             </item>
            </widget>
           </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_5">
+          <item row="6" column="0">
+           <widget class="QLabel" name="label_4">
             <property name="text">
-             <string>颜色映射模式</string>
+             <string>线宽</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>线型</string>
+          <item row="6" column="1">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_lineWidth">
+            <property name="minimum">
+             <double>0.100000000000000</double>
             </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QComboBox" name="comboBox_lineType">
-            <item>
-             <property name="text">
-              <string>实线</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>虚线</string>
-             </property>
-            </item>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>1.000000000000000</double>
+            </property>
            </widget>
           </item>
          </layout>
